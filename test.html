@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashClarity - Quick Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .pass { background-color: #d4edda; }
+        .fail { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>CashClarity Functionality Test</h1>
+    <div id="test-results"></div>
+
+    <script src="app.js"></script>
+    <script>
+        // Simple tests to verify core functionality
+        function runTests() {
+            const results = [];
+
+            // Test 1: App initialization
+            try {
+                const testApp = new CashClarity();
+                results.push({ name: 'App Initialization', status: 'pass' });
+            } catch (e) {
+                results.push({ name: 'App Initialization', status: 'fail', error: e.message });
+            }
+
+            // Test 2: Currency formatting
+            try {
+                const testApp = new CashClarity();
+                const formatted = testApp.formatCurrency(1234.56);
+                if (formatted === '$1,234.56') {
+                    results.push({ name: 'Currency Formatting', status: 'pass' });
+                } else {
+                    results.push({ name: 'Currency Formatting', status: 'fail', error: `Expected $1,234.56, got ${formatted}` });
+                }
+            } catch (e) {
+                results.push({ name: 'Currency Formatting', status: 'fail', error: e.message });
+            }
+
+            // Test 3: Date formatting
+            try {
+                const testApp = new CashClarity();
+                const formatted = testApp.formatDate('2024-01-15');
+                if (formatted.includes('Jan') && formatted.includes('15') && formatted.includes('2024')) {
+                    results.push({ name: 'Date Formatting', status: 'pass' });
+                } else {
+                    results.push({ name: 'Date Formatting', status: 'fail', error: `Unexpected format: ${formatted}` });
+                }
+            } catch (e) {
+                results.push({ name: 'Date Formatting', status: 'fail', error: e.message });
+            }
+
+            // Test 4: Data structure creation
+            try {
+                const testApp = new CashClarity();
+                testApp.currentCash = 1000;
+                testApp.incomes = [{ id: 1, name: 'Test', amount: 500, frequency: 'monthly', nextDate: '2024-02-01' }];
+                testApp.bills = [{ id: 1, name: 'Test Bill', amount: 200, dueDate: '2024-01-31', priority: 'high' }];
+
+                if (testApp.currentCash === 1000 && testApp.incomes.length === 1 && testApp.bills.length === 1) {
+                    results.push({ name: 'Data Structure Creation', status: 'pass' });
+                } else {
+                    results.push({ name: 'Data Structure Creation', status: 'fail', error: 'Data not stored correctly' });
+                }
+            } catch (e) {
+                results.push({ name: 'Data Structure Creation', status: 'fail', error: e.message });
+            }
+
+            // Display results
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = results.map(result => `
+                <div class="test ${result.status}">
+                    <strong>${result.name}:</strong> ${result.status.toUpperCase()}
+                    ${result.error ? `<br><em>Error: ${result.error}</em>` : ''}
+                </div>
+            `).join('');
+
+            const passCount = results.filter(r => r.status === 'pass').length;
+            resultsDiv.innerHTML += `<h2>Results: ${passCount}/${results.length} tests passed</h2>`;
+        }
+
+        // Run tests when page loads
+        setTimeout(runTests, 100);
+    </script>
+</body>
+</html>

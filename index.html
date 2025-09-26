@@ -2,12 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cash Clarity</title>
-    <!--TO DO:Meta tags and other links -->
-    <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <h1>Cash Projection App</h1>
-        <script src="app.js"></script>
-    </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashClarity - Personal Financial Projection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 CashClarity</h1>
+            <p>Simple Personal Financial Projections</p>
+        </header>
+
+        <main>
+            <!-- Current Cash Section -->
+            <section class="cash-section">
+                <h2>Current Cash on Hand</h2>
+                <div class="input-group">
+                    <label for="current-cash">Amount ($):</label>
+                    <input type="number" id="current-cash" step="0.01" placeholder="Enter current cash">
+                    <button id="update-cash-btn">Update</button>
+                </div>
+                <div class="current-display">
+                    <span>Current Cash: <strong id="cash-display">$0.00</strong></span>
+                </div>
+            </section>
+
+            <!-- Income Sources Section -->
+            <section class="income-section">
+                <h2>Income Sources</h2>
+                <div class="add-form" id="income-form">
+                    <div class="form-row">
+                        <input type="text" id="income-name" placeholder="Income name (e.g., Salary)">
+                        <input type="number" id="income-amount" step="0.01" placeholder="Amount">
+                    </div>
+                    <div class="form-row">
+                        <select id="income-frequency">
+                            <option value="weekly">Weekly</option>
+                            <option value="bi-weekly">Bi-weekly</option>
+                            <option value="monthly" selected>Monthly</option>
+                            <option value="one-time">One-time</option>
+                        </select>
+                        <input type="date" id="income-next-date">
+                        <button id="add-income-btn">Add Income</button>
+                    </div>
+                </div>
+                <div class="items-list" id="income-list">
+                    <!-- Income items will be added here -->
+                </div>
+            </section>
+
+            <!-- Bills Section -->
+            <section class="bills-section">
+                <h2>Bills & Expenses</h2>
+                <div class="add-form" id="bill-form">
+                    <div class="form-row">
+                        <input type="text" id="bill-name" placeholder="Bill name (e.g., Rent)">
+                        <input type="number" id="bill-amount" step="0.01" placeholder="Amount">
+                        <input type="date" id="bill-due-date">
+                    </div>
+                    <div class="form-row">
+                        <select id="bill-priority">
+                            <option value="high">High Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                        <input type="number" id="bill-grace-days" placeholder="Grace period (days)" min="0">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="bill-online-fee">
+                            Online payment fee
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <input type="number" id="bill-online-fee-amount" step="0.01" placeholder="Online fee amount" disabled>
+                        <input type="number" id="bill-late-fee" step="0.01" placeholder="Late fee amount">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="bill-can-pay-late">
+                            Can pay late
+                        </label>
+                        <button id="add-bill-btn">Add Bill</button>
+                    </div>
+                </div>
+                <div class="items-list" id="bills-list">
+                    <!-- Bill items will be added here -->
+                </div>
+            </section>
+
+            <!-- Projections Section -->
+            <section class="projections-section">
+                <h2>Financial Projections</h2>
+                <div class="projection-controls">
+                    <button id="calculate-projections-btn">Calculate Projections</button>
+                    <select id="projection-timeframe">
+                        <option value="next-payday">Until Next Payday</option>
+                        <option value="30-days">Next 30 Days</option>
+                        <option value="60-days">Next 60 Days</option>
+                    </select>
+                </div>
+                <div class="projections-display" id="projections-display">
+                    <!-- Projection results will be displayed here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
 </html>
